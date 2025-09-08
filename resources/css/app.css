@@ -1,0 +1,30 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+.gradient-custom {
+/* fallback for old browsers */
+background: #6a11cb;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+}
+:root {
+  /* Sobrescribir variables MDBootstrap para tablas */
+  --mdb-table-bg: #1e293b; /* Fondo de tabla en tema oscuro */
+  --mdb-table-color: #e2e8f0; /* Color de texto de tabla */
+  --mdb-table-border-color: #2d3748; /* Color de borde */
+  --mdb-table-striped-bg: rgba(59, 130, 246, 0.05); /* Fondo de filas alternadas */
+  --mdb-table-hover-bg: rgba(59, 130, 246, 0.1); /* Fondo al pasar el cursor */
+  /* ...otros valores que quieras modificar */
+}
