@@ -1,0 +1,4 @@
+https://github.com/heroku/heroku-buildpack-php.git
+https://github.com/digitalocean/php-appdetect.git
+https://github.com/digitalocean/procfile.git
+https://github.com/digitalocean/custom-build-command.git
