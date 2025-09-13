@@ -9,7 +9,7 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('login'); // tu vista login.blade.php
+    return view('index'); // tu vista index.blade.php
     }
 
     public function login(Request $request)
