@@ -62,6 +62,29 @@
             border-left-color: #3b82f6;
             color: #fff;
         }
+        
+        /* Anular los estilos móviles en escritorio */
+        @media (min-width: 769px) {
+            .menu-item {
+                margin: 0;
+                border-radius: 0;
+                padding: 0.65rem 1.1rem;
+                font-size: 0.85rem;
+                border-left: 3px solid transparent;
+                transition: 0.18s background, 0.18s color, 0.18s border-color;
+            }
+            
+            .menu-item.active {
+                background: rgba(255, 255, 255, 0.1);
+                border-left-color: #3b82f6;
+                box-shadow: none;
+            }
+            
+            .menu-item svg {
+                width: 18px;
+                height: 18px;
+            }
+        }
 
         .menu-item svg {
             width: 18px;
@@ -88,6 +111,8 @@
             cursor: pointer;
             font-weight: 600;
             transition: 0.18s background;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         .logout-btn:hover {
@@ -101,18 +126,86 @@
             margin-top: 0.65rem;
         }
 
-        /* Responsive adjustments */
         @media (max-width: 768px) {
             .sidebar {
-                width: 100%;
+                width: 85%;
+                max-width: 300px;
                 position: fixed;
+                top: 0;
+                left: 0;
+                height: 100%;
+                height: 100dvh; /* Dynamic viewport height para móviles modernos */
                 z-index: 50;
                 transform: translateX(-100%);
-                transition: transform 0.3s ease;
+                transition: transform 0.25s ease-out;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                display: flex;
+                flex-direction: column;
             }
             
             .sidebar.open {
                 transform: translateX(0);
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            }
+            
+            .logout-btn {
+                padding: 0.8rem 0.9rem;
+                border-radius: 8px;
+                font-size: 0.9rem;
+                font-weight: 500;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            
+            .logout-btn:active {
+                transform: scale(0.98);
+            }
+            
+            /* Estilos específicos para móvil */
+            .menu-item {
+                padding: 0.9rem 1.1rem;
+                font-size: 0.95rem;
+                margin: 0.1rem 0.5rem;
+                border-radius: 8px;
+                border-left: none;
+                transition: 0.15s background;
+            }
+            
+            .menu-item.active {
+                background: rgba(59, 130, 246, 0.15);
+                border-left: none;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            
+            .menu-item:active {
+                background: rgba(255, 255, 255, 0.1);
+                transform: scale(0.98);
+            }
+            
+            .menu-item svg {
+                width: 22px;
+                height: 22px;
+            }
+            
+            .sidebar-header {
+                padding: 1.5rem 1rem;
+                padding-top: calc(1.5rem + env(safe-area-inset-top, 0px)); /* Soporte para notch/dynamic island */
+            }
+            
+            .sidebar-header h2 {
+                font-size: 1.35rem;
+            }
+            
+            /* Asegurar que el contenido ocupe el espacio disponible */
+            .sidebar-content {
+                flex: 1 1 auto;
+                overflow-y: auto;
+            }
+            
+            /* Ajuste para la parte inferior en móviles con gestures */
+            .sidebar-footer {
+                padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+                flex-shrink: 0;
             }
         }
     </style>
