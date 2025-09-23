@@ -9,8 +9,13 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ToolController;
 use App\Http\Controllers\CareerController;
 
+// Ruta principal que redirige a about-me
+Route::get('/', function () {
+    return redirect()->route('about-me.index');
+})->name('home');
+
 // Rutas de autenticación
-Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.perform');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
