@@ -13,6 +13,11 @@ ENV WEBROOT=/var/www/html/public \
 COPY deploy.sh /scripts/10-deploy.sh
 RUN chmod +x /scripts/10-deploy.sh
 
+# Reemplazar la config de Nginx con una que soporte rewrites de Laravel
+COPY docker/nginx/default.conf /etc/nginx/sites-enabled/default.conf
+# Copia también a conf.d por compatibilidad
+COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+
 # El entrypoint/CMD por defecto de la imagen ya inicia Nginx + PHP-FPM y ejecuta /scripts/* si RUN_SCRIPTS=1
 # Exponer el puerto (opcional, la imagen ya expone 80)
 EXPOSE 80
