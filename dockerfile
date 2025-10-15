@@ -14,12 +14,10 @@ RUN apk add --no-cache \
     supervisor
 
 # Instalar extensiones de PHP
+# Nota: session, fileinfo, tokenizer ya vienen incluidos en PHP 8.2
 RUN docker-php-ext-install \
     pdo \
     pdo_pgsql \
-    session \
-    fileinfo \
-    tokenizer \
     dom \
     xml \
     zip \
