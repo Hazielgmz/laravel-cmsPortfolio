@@ -1,4 +1,27 @@
-#!/usr/bin/env bash#!/usr/bin/env bash#!/usr/bin/env bash#!/usr/bin/env bash
+
+#!/bin/sh
+
+set -e
+
+echo "🔑 Generando clave de aplicación..."
+php artisan key:generate --force || true
+
+echo "🗄️ Verificando base de datos..."
+php artisan migrate:status || echo "Base de datos no disponible aún"
+
+echo "🧭 Ejecutando migraciones..."
+php artisan migrate --force || echo "Migraciones fallaron, continuando..."
+
+echo "⚡ Optimizando aplicación..."
+php artisan config:cache || true
+php artisan route:cache || true
+php artisan view:cache || true
+
+echo "🧹 Limpiando cachés antiguos..."
+php artisan optimize:clear || true
+
+echo "🚀 Iniciando servicios con Supervisor..."
+exec /usr/bin/supervisord -c /etc/supervisor.d/supervisord.ini
 
 
 
