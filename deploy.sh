@@ -3,10 +3,7 @@
 
 set -e
 
-echo "🔑 Generando clave de aplicación..."
-php artisan key:generate --force || true
-
-echo "🗄️ Verificando base de datos..."
+echo "️ Verificando base de datos..."
 php artisan migrate:status || echo "Base de datos no disponible aún"
 
 echo "🧭 Ejecutando migraciones..."
