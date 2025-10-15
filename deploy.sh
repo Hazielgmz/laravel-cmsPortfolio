@@ -1,28 +1,54 @@
-#!/usr/bin/env bash#!/usr/bin/env bash
-
-set -eset -e
+#!/usr/bin/env bash#!/usr/bin/env bash#!/usr/bin/env bash
 
 
+
+set -eset -eset -e
+
+
+
+echo "🧰 Instalando dependencias de Composer..."
+
+composer install --no-dev --optimize-autoloader --working-dir=/var/www/html
 
 echo "Verificando entorno..."echo "🧰 Instalando dependencias de Composer..."
 
-php --versioncomposer install --no-dev --optimize-autoloader --working-dir=/var/www/html
+echo "🔑 Generando clave de aplicación..."
 
-composer --version || echo "Composer no disponible"
+php artisan key:generate --forcephp --versioncomposer install --no-dev --optimize-autoloader --working-dir=/var/www/html
+
+
+
+echo "🗄️ Verificando base de datos..."composer --version || echo "Composer no disponible"
+
+php artisan migrate:status || echo "Base de datos no disponible aún"
 
 echo "🔑 Generando clave de aplicación..."
 
-echo "Generando clave de aplicacion..."php artisan key:generate --force
+echo "🧭 Ejecutando migraciones..."
 
-php artisan key:generate --force
+php artisan migrate --forceecho "Generando clave de aplicacion..."php artisan key:generate --force
 
-echo "🗄️ Verificando base de datos..."
+
+
+echo "⚡ Optimizando aplicación..."php artisan key:generate --force
+
+php artisan config:cache
+
+php artisan route:cacheecho "🗄️ Verificando base de datos..."
+
+php artisan view:cache
 
 echo "Verificando conexion a base de datos..."php artisan migrate:status || echo "Base de datos no disponible aún"
 
-php artisan migrate:status || echo "Base de datos no disponible aun"
+echo "🧹 Limpiando cachés antiguos..."
 
-echo "🧭 Ejecutando migraciones..."
+php artisan optimize:clear || truephp artisan migrate:status || echo "Base de datos no disponible aun"
+
+
+
+echo "🚀 Iniciando Nginx + PHP-FPM..."echo "🧭 Ejecutando migraciones..."
+
+exec /start.sh
 
 echo "Ejecutando migraciones..."php artisan migrate --force
 
