@@ -3,7 +3,10 @@
 
 set -e
 
-echo "️ Verificando base de datos..."
+echo "🧰 Instalando dependencias de Composer..."
+composer install --no-dev --optimize-autoloader --working-dir=/var/www/html
+
+echo "🗄️ Verificando base de datos..."
 php artisan migrate:status || echo "Base de datos no disponible aún"
 
 echo "🧭 Ejecutando migraciones..."
@@ -17,8 +20,7 @@ php artisan view:cache || true
 echo "🧹 Limpiando cachés antiguos..."
 php artisan optimize:clear || true
 
-echo "🚀 Iniciando servicios con Supervisor..."
-exec /usr/bin/supervisord -c /etc/supervisor.d/supervisord.ini
+echo "🚀 Iniciando servicios..."
 
 
 
