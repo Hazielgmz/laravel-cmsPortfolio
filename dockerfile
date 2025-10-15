@@ -55,6 +55,9 @@ server {
     
     index index.php index.html;
     
+    # Configurar el usuario de nginx
+    charset utf-8;
+    
     location / {
         try_files \$uri \$uri/ /index.php?\$query_string;
     }
@@ -71,6 +74,9 @@ server {
     }
 }
 EOF
+
+# Configurar nginx para usar el usuario www-data
+RUN sed -i 's/user nginx;/user www-data;/g' /etc/nginx/nginx.conf || echo "user www-data;" > /etc/nginx/nginx.conf.tmp && cat /etc/nginx/nginx.conf >> /etc/nginx/nginx.conf.tmp && mv /etc/nginx/nginx.conf.tmp /etc/nginx/nginx.conf
 
 # Configurar Supervisor para ejecutar Nginx y PHP-FPM
 RUN mkdir -p /etc/supervisor.d
