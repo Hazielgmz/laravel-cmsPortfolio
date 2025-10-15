@@ -1,26 +1,49 @@
-#!/usr/bin/env bash#!/usr/bin/env bash#!/usr/bin/env bash
+#!/usr/bin/env bash#!/usr/bin/env bash#!/usr/bin/env bash#!/usr/bin/env bash
 
 
 
-set -eset -eset -e
+set -e
 
 
 
-echo "🧰 Instalando dependencias de Composer..."
+echo "🔑 Generando clave de aplicación..."set -eset -eset -e
 
-composer install --no-dev --optimize-autoloader --working-dir=/var/www/html
+php artisan key:generate --force || true
+
+
+
+echo "🗄️ Verificando base de datos..."
+
+php artisan migrate:status || echo "Base de datos no disponible aún"echo "🧰 Instalando dependencias de Composer..."
+
+
+
+echo "🧭 Ejecutando migraciones..."composer install --no-dev --optimize-autoloader --working-dir=/var/www/html
+
+php artisan migrate --force || echo "Migraciones fallaron, continuando..."
 
 echo "Verificando entorno..."echo "🧰 Instalando dependencias de Composer..."
 
-echo "🔑 Generando clave de aplicación..."
+echo "⚡ Optimizando aplicación..."
 
-php artisan key:generate --forcephp --versioncomposer install --no-dev --optimize-autoloader --working-dir=/var/www/html
+php artisan config:cache || trueecho "🔑 Generando clave de aplicación..."
+
+php artisan route:cache || true
+
+php artisan view:cache || truephp artisan key:generate --forcephp --versioncomposer install --no-dev --optimize-autoloader --working-dir=/var/www/html
 
 
+
+echo "🧹 Limpiando cachés antiguos..."
+
+php artisan optimize:clear || true
 
 echo "🗄️ Verificando base de datos..."composer --version || echo "Composer no disponible"
 
-php artisan migrate:status || echo "Base de datos no disponible aún"
+echo "🚀 Iniciando servicios con Supervisor..."
+
+exec /usr/bin/supervisord -c /etc/supervisord.confphp artisan migrate:status || echo "Base de datos no disponible aún"
+
 
 echo "🔑 Generando clave de aplicación..."
 
