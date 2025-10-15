@@ -9,9 +9,9 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ToolController;
 use App\Http\Controllers\CareerController;
 
-// Ruta principal que redirige a about-me
+// Ruta principal que redirige a login
 Route::get('/', function () {
-    return redirect()->route('about-me.index');
+    return redirect()->route('login');
 })->name('home');
 
 // Rutas de autenticación

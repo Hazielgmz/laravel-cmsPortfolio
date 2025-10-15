@@ -35,13 +35,13 @@ WORKDIR /var/www/html
 # Instalar dependencias de Composer durante el build
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
-# Crear directorios necesarios
-RUN mkdir -p /var/www/html/storage/logs \
-    && mkdir -p /var/www/html/bootstrap/cache
 
-# Permisos para Laravel
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+# Crear directorios necesarios y permisos para Laravel y public
+RUN mkdir -p /var/www/html/storage/logs \
+    && mkdir -p /var/www/html/bootstrap/cache \
+    && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/public \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod -R 755 /var/www/html/public
 
 # Configurar Nginx
 RUN rm -rf /etc/nginx/http.d/default.conf
